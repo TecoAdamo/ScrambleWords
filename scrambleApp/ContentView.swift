@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
+	@State var letters: [String] = ["O","R","A","N","G","E"]
     var body: some View {
 			GeometryReader(content: { proxy in
 				ZStack {
@@ -15,9 +16,20 @@ struct ContentView: View {
 						.ignoresSafeArea()
 					VStack {
 						VStack {
+							Spacer()
 									Image("orange")
 								.resizable()
 								.frame(width: 100, height:  100)
+							Spacer()
+							HStack{
+								VStack{
+									LetterView(charatcer: "")
+									Rectangle()
+										.fill(.white)
+										.frame(width: 25, height: 2)
+								}
+							}
+							.padding(.bottom, 20)
 							}
 						.frame(width: proxy.size.width * 0.9, height: proxy.size.width * 0.9)
 						.overlay{
@@ -29,8 +41,9 @@ struct ContentView: View {
 							.foregroundStyle(.white)
 							.padding(.top)
 						HStack{
-							LetterView(charatcer: "O")
-							LetterView(charatcer: "A")
+							ForEach(letters, id: \.self){letter in
+								LetterView(charatcer: letter)
+							}
 						}
 					}
 					
